@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사주 Saju — Korean Four Pillars of Destiny</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;400;700&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8C96C;
+            --gold-dark: #8B6914;
+            --red: #8B1A1A;
+            --red-light: #C0392B;
+            --bg-dark: #0D0D1A;
+            --bg-mid: #12122A;
+            --bg-card: #1A1A35;
+            --text: #E8E0D0;
+            --text-dim: #9A9080;
+            --wood: #5B8C5A;
+            --fire: #C0392B;
+            --earth: #B8860B;
+            --metal: #A0A0B8;
+            --water: #2E86AB;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Lora', Georgia, serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Canvas Stars ── */
+        #stars-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* ── Layout ── */
+        .container { max-width: 960px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+        }
+        .hero-badge {
+            display: inline-block;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            border: 1px solid var(--gold-dark);
+            padding: 6px 20px;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+            text-shadow: 0 0 40px rgba(201,168,76,0.3);
+            margin-bottom: 10px;
+        }
+        .hero-korean {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1rem;
+            color: var(--gold-dark);
+            letter-spacing: 0.5em;
+            margin-bottom: 24px;
+        }
+        .hero p {
+            max-width: 580px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            font-style: italic;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 48px 0;
+            opacity: 0.5;
+        }
+        .divider-line { flex: 1; height: 1px; background: var(--gold-dark); }
+        .divider-symbol { color: var(--gold); font-size: 1.2rem; }
+
+        /* ── Form ── */
+        .form-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1E1E3C 100%);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 2px;
+            padding: 48px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .form-section::before, .form-section::after {
+            content: '◈';
+            position: absolute;
+            color: var(--gold-dark);
+            font-size: 1rem;
+        }
+        .form-section::before { top: 12px; left: 12px; }
+        .form-section::after { bottom: 12px; right: 12px; }
+
+        .form-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 1px;
+            color: var(--text);
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            padding: 12px 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(201,168,76,0.1);
+        }
+        .form-group select option { background: var(--bg-card); }
+
+        .form-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+
+        .btn-reveal {
+            display: block;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+            color: #0D0D1A;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: none;
+            padding: 16px 32px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-reveal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+        }
+        .btn-reveal:active { transform: translateY(0); }
+
+        /* ── Results ── */
+        #results { display: none; }
+        #results.visible { display: block; }
+
+        /* Four Pillars */
+        .pillars-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 0.15em;
+            margin-bottom: 8px;
+        }
+        .pillars-subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+        @media (max-width: 640px) {
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .pillar-card {
+            background: linear-gradient(180deg, var(--bg-card) 0%, #0F0F22 100%);
+            border: 1px solid rgba(201,168,76,0.2);
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.6s ease both;
+        }
+        .pillar-card:nth-child(1) { animation-delay: 0.1s; }
+        .pillar-card:nth-child(2) { animation-delay: 0.2s; }
+        .pillar-card:nth-child(3) { animation-delay: 0.3s; }
+        .pillar-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+            border-color: rgba(201,168,76,0.4);
+        }
+        .pillar-card.day-card {
+            border-color: rgba(201,168,76,0.5);
+            background: linear-gradient(180deg, #1E1A2E 0%, #0F0F22 100%);
+        }
+        .pillar-card.day-card::before {
+            content: 'Day Master';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            background: var(--bg-dark);
+            padding: 2px 10px;
+            border: 1px solid var(--gold-dark);
+            white-space: nowrap;
+        }
+
+        .pillar-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        .pillar-stem {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.8rem;
+            line-height: 1;
+            margin-bottom: 6px;
+            text-shadow: 0 0 20px currentColor;
+        }
+        .pillar-stem-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .pillar-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--gold-dark);
+            margin: 0 auto 16px;
+        }
+
+        .pillar-branch {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.8rem;
+            line-height: 1;
+            margin-bottom: 6px;
+            text-shadow: 0 0 20px currentColor;
+        }
+        .pillar-branch-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .pillar-animal {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        .pillar-animal-name {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--text-dim);
+        }
+
+        /* Element colors */
+        .el-wood { color: #6DBF6D; }
+        .el-fire { color: #E85D5D; }
+        .el-earth { color: #D4A843; }
+        .el-metal { color: #B0B8C8; }
+        .el-water { color: #5AAFD4; }
+
+        /* ── Reading Sections ── */
+        .reading-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1E1E3C 100%);
+            border: 1px solid rgba(201,168,76,0.15);
+            padding: 40px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .reading-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .reading-icon { font-size: 1.8rem; }
+        .reading-header-text {}
+        .reading-header-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+        .reading-header-text p {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .reading-body {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            color: var(--text);
+        }
+        .reading-body p { margin-bottom: 12px; }
+        .reading-body p:last-child { margin-bottom: 0; }
+
+        .highlight-box {
+            background: rgba(201,168,76,0.08);
+            border-left: 3px solid var(--gold);
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .traits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .trait-item {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(201,168,76,0.1);
+            padding: 14px 16px;
+            font-size: 0.85rem;
+        }
+        .trait-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            margin-bottom: 6px;
+        }
+        .trait-value { color: var(--text); }
+
+        /* Element Balance */
+        .element-balance {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin: 24px 0;
+        }
+        @media (max-width: 500px) {
+            .element-balance { grid-template-columns: repeat(3, 1fr); }
+        }
+        .element-bar-wrap {
+            text-align: center;
+        }
+        .element-bar-outer {
+            height: 80px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 1px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .element-bar-inner {
+            width: 100%;
+            transition: height 1s ease;
+            border-radius: 1px 1px 0 0;
+        }
+        .element-bar-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .element-bar-count {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        /* Lucky section */
+        .lucky-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .lucky-item {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(201,168,76,0.15);
+            padding: 18px 14px;
+            text-align: center;
+        }
+        .lucky-item-icon { font-size: 1.6rem; margin-bottom: 8px; }
+        .lucky-item-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+        .lucky-item-value {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(201,168,76,0.1);
+            margin-top: 80px;
+        }
+        footer .footer-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-dark);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* Error */
+        .error-msg {
+            background: rgba(139,26,26,0.3);
+            border: 1px solid rgba(192,57,43,0.4);
+            color: #E88;
+            padding: 12px 20px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+        .error-msg.show { display: block; }
+
+        /* ── Mobile ── */
+        /* Select 화살표 */
+        .form-group .select-wrap {
+            position: relative;
+        }
+        .form-group .select-wrap::after {
+            content: '▾';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            pointer-events: none;
+            font-size: 0.85rem;
+        }
+
+        /* 터치 타겟 */
+        .form-group input,
+        .form-group select {
+            min-height: 48px;
+            font-size: 16px; /* iOS zoom 방지 */
+        }
+        .btn-reveal {
+            min-height: 52px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 56px 16px 40px;
+            }
+            .hero p {
+                font-size: 0.95rem;
+            }
+            .form-section {
+                padding: 32px 20px;
+                margin-bottom: 40px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .reading-section {
+                padding: 28px 20px;
+            }
+            .traits-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .lucky-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .divider { margin: 32px 0; }
+            footer { margin-top: 48px; padding: 36px 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 44px 12px 32px;
+            }
+            .hero-badge {
+                font-size: 0.65rem;
+                letter-spacing: 0.15em;
+                padding: 5px 14px;
+            }
+            .hero-korean {
+                letter-spacing: 0.3em;
+            }
+            .form-section {
+                padding: 24px 16px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            /* 4기둥: 모바일은 2열 유지, 폰트 축소 */
+            .pillar-card {
+                padding: 18px 10px;
+            }
+            .pillar-stem,
+            .pillar-branch {
+                font-size: 2.2rem;
+            }
+            .pillar-stem-label,
+            .pillar-branch-label {
+                font-size: 0.65rem;
+            }
+            .pillar-label {
+                font-size: 0.58rem;
+                letter-spacing: 0.1em;
+            }
+            .pillar-animal { font-size: 1.1rem; }
+            .pillar-animal-name { font-size: 0.62rem; }
+            /* Day Master 뱃지 잘림 방지 */
+            .pillar-card.day-card::before {
+                font-size: 0.5rem;
+                letter-spacing: 0.08em;
+                padding: 2px 7px;
+            }
+            .pillars-title { font-size: 1.2rem; letter-spacing: 0.08em; }
+            .reading-section { padding: 20px 14px; }
+            .reading-header { gap: 12px; margin-bottom: 18px; }
+            .reading-icon { font-size: 1.4rem; }
+            .reading-header-text h3 { font-size: 1rem; }
+            .highlight-box { padding: 12px 14px; font-size: 0.85rem; }
+            .reading-body { font-size: 0.88rem; line-height: 1.8; }
+            .traits-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .lucky-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .lucky-item { padding: 14px 8px; }
+            .lucky-item-icon { font-size: 1.3rem; }
+            .lucky-item-label { font-size: 0.6rem; }
+            .lucky-item-value { font-size: 0.82rem; }
+            .element-balance { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+            .element-bar-label { font-size: 0.62rem; }
+            .btn-reveal { max-width: 100%; letter-spacing: 0.1em; font-size: 0.95rem; }
+            .form-note { font-size: 0.75rem; padding: 0 4px; }
+        }
+
+        /* 가로 스크롤 완전 차단 */
+        html, body { overflow-x: hidden; max-width: 100vw; }
+    </style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">사주팔자 · Saju Pallja</div>
+        <h1>Korean Four Pillars<br>of Destiny</h1>
+        <div class="hero-korean">사 주 · 四 柱</div>
+        <p>
+            An ancient Korean-Chinese divination system over 2,000 years old.
+            Your birth moment encodes four pillars — each a window into your nature,
+            your path, and the cosmic energies that shape your life.
+        </p>
+    </section>
+
+    <!-- FORM -->
+    <section class="form-section reveal">
+        <h2 class="form-title">Enter Your Birth Information</h2>
+        <p class="form-subtitle">Use your local birth time — the moment you arrived in this world</p>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Birth Year</label>
+                <input type="number" id="inp-year" placeholder="e.g. 1990" min="1900" max="2024">
+            </div>
+            <div class="form-group">
+                <label>Birth Month</label>
+                <div class="select-wrap"><select id="inp-month">
+                    <option value="">— Select —</option>
+                    <option value="1">January</option><option value="2">February</option>
+                    <option value="3">March</option><option value="4">April</option>
+                    <option value="5">May</option><option value="6">June</option>
+                    <option value="7">July</option><option value="8">August</option>
+                    <option value="9">September</option><option value="10">October</option>
+                    <option value="11">November</option><option value="12">December</option>
+                </select></div>
+            </div>
+            <div class="form-group">
+                <label>Birth Day</label>
+                <input type="number" id="inp-day" placeholder="e.g. 15" min="1" max="31">
+            </div>
+            <div class="form-group">
+                <label>Birth Hour</label>
+                <div class="select-wrap"><select id="inp-hour">
+                    <option value="">— Select —</option>
+                    <option value="99">⭐ I don't know my birth time</option>
+                    <option disabled>──────────────</option>
+                    <option value="0">00:00 — Midnight (자시)</option>
+                    <option value="1">01:00 — 1 AM (축시)</option>
+                    <option value="2">02:00 — 2 AM (축시)</option>
+                    <option value="3">03:00 — 3 AM (인시)</option>
+                    <option value="4">04:00 — 4 AM (인시)</option>
+                    <option value="5">05:00 — 5 AM (묘시)</option>
+                    <option value="6">06:00 — 6 AM (묘시)</option>
+                    <option value="7">07:00 — 7 AM (진시)</option>
+                    <option value="8">08:00 — 8 AM (진시)</option>
+                    <option value="9">09:00 — 9 AM (사시)</option>
+                    <option value="10">10:00 — 10 AM (사시)</option>
+                    <option value="11">11:00 — 11 AM (오시)</option>
+                    <option value="12">12:00 — Noon (오시)</option>
+                    <option value="13">13:00 — 1 PM (미시)</option>
+                    <option value="14">14:00 — 2 PM (미시)</option>
+                    <option value="15">15:00 — 3 PM (신시)</option>
+                    <option value="16">16:00 — 4 PM (신시)</option>
+                    <option value="17">17:00 — 5 PM (유시)</option>
+                    <option value="18">18:00 — 6 PM (유시)</option>
+                    <option value="19">19:00 — 7 PM (술시)</option>
+                    <option value="20">20:00 — 8 PM (술시)</option>
+                    <option value="21">21:00 — 9 PM (해시)</option>
+                    <option value="22">22:00 — 10 PM (해시)</option>
+                    <option value="23">23:00 — 11 PM (해시/자시)</option>
+                </select></div>
+            </div>
+        </div>
+
+        <p class="form-note">
+            ✦ If born between Jan 1 – Feb 3, the year pillar may reflect the previous lunar year
+        </p>
+
+        <button class="btn-reveal" onclick="calculateSaju()">✦ Reveal My Destiny ✦</button>
+        <div class="error-msg" id="error-msg">Please fill in all fields to calculate your Saju.</div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results">
+
+        <!-- FOUR PILLARS -->
+        <h2 class="pillars-title">Your Four Pillars · 사주팔자</h2>
+        <p class="pillars-subtitle" id="birth-display"></p>
+
+        <div class="pillars-grid" id="pillars-grid"></div>
+
+        <!-- DAY MASTER READING -->
+        <div class="reading-section" id="daymaster-reading">
+            <div class="reading-header">
+                <div class="reading-icon">☯</div>
+                <div class="reading-header-text">
+                    <h3>Your Day Master · 일간</h3>
+                    <p>The Heavenly Stem of your Day Pillar — the truest reflection of your inner self</p>
+                </div>
+            </div>
+            <div class="reading-body" id="daymaster-body"></div>
+        </div>
+
+        <!-- ELEMENT BALANCE -->
+        <div class="reading-section" id="element-section">
+            <div class="reading-header">
+                <div class="reading-icon">⚖</div>
+                <div class="reading-header-text">
+                    <h3>Elemental Balance · 오행</h3>
+                    <p>The Five Elements (Wood, Fire, Earth, Metal, Water) woven through your eight characters</p>
+                </div>
+            </div>
+            <div class="element-balance" id="element-balance"></div>
+            <div class="reading-body" id="element-body"></div>
+        </div>
+
+        <!-- PERSONALITY -->
+        <div class="reading-section" id="personality-section">
+            <div class="reading-header">
+                <div class="reading-icon">🌙</div>
+                <div class="reading-header-text">
+                    <h3>Personality & Character</h3>
+                    <p>Core traits revealed by your pillars</p>
+                </div>
+            </div>
+            <div class="reading-body" id="personality-body"></div>
+        </div>
+
+        <!-- CAREER -->
+        <div class="reading-section" id="career-section">
+            <div class="reading-header">
+                <div class="reading-icon">⚔</div>
+                <div class="reading-header-text">
+                    <h3>Career & Life Path</h3>
+                    <p>Vocations and paths aligned with your elemental nature</p>
+                </div>
+            </div>
+            <div class="reading-body" id="career-body"></div>
+        </div>
+
+        <!-- RELATIONSHIPS -->
+        <div class="reading-section" id="love-section">
+            <div class="reading-header">
+                <div class="reading-icon">♡</div>
+                <div class="reading-header-text">
+                    <h3>Love & Relationships</h3>
+                    <p>Your nature in bonds of heart and family</p>
+                </div>
+            </div>
+            <div class="reading-body" id="love-body"></div>
+        </div>
+
+        <!-- LUCKY -->
+        <div class="reading-section" id="lucky-section">
+            <div class="reading-header">
+                <div class="reading-icon">✦</div>
+                <div class="reading-header-text">
+                    <h3>Lucky Elements</h3>
+                    <p>Colors, numbers, directions, and elements that bring you fortune</p>
+                </div>
+            </div>
+            <div class="lucky-grid" id="lucky-grid"></div>
+        </div>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-symbol">☯</div>
+            <div class="divider-line"></div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-title">사주 · 四柱 · Saju</div>
+    <p>Korean Four Pillars of Destiny · An interpretation based on classical Korean Saju principles</p>
+    <p style="margin-top:8px; font-size:0.75rem; opacity:0.5;">This reading is for cultural exploration and personal reflection. The cosmos speaks in patterns — listen with an open heart.</p>
+</footer>
+
+<script>
+// ── Stars canvas ──────────────────────────────────────────────────
+(function(){
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize(){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    function initStars(){
+        stars = [];
+        const count = Math.floor(window.innerWidth * window.innerHeight / 5000);
+        for(let i=0;i<count;i++){
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.2 + 0.2,
+                a: Math.random(),
+                speed: Math.random() * 0.005 + 0.002
+            });
+        }
+    }
+    function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        stars.forEach(s=>{
+            s.a += s.speed;
+            const alpha = (Math.sin(s.a) + 1) / 2 * 0.7 + 0.1;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+            ctx.fillStyle = `rgba(201,168,76,${alpha})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', ()=>{ resize(); initStars(); });
+    resize(); initStars(); draw();
+})();
+
+// ── Scroll reveal ─────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Saju Data ─────────────────────────────────────────────────────
+const STEMS = [
+    { char:'甲', rom:'Gap',    el:'Wood',  yin:false, eng:'Yang Wood',   emoji:'🌲', color:'#6DBF6D',
+      trait:'Leadership, Ambition, Growth',
+      personality: 'You are a natural pioneer with an unwavering drive to grow and lead. Like a towering tree reaching skyward, you possess an innate authority and directness that others find both inspiring and occasionally intimidating. You set goals with vision and pursue them relentlessly. Your idealism is your greatest strength, and your stubbornness your greatest teacher.',
+      career: 'You thrive in roles that allow you to lead, build, and innovate. Fields like entrepreneurship, architecture, law, academia, athletics, or any position of leadership align with your Yang Wood nature. You are drawn to long-term projects with visible, lasting results.',
+      love: 'In love, you are devoted and protective, but may struggle with controlling tendencies. You seek a partner who is both independent enough to earn your respect and grounded enough to balance your intensity. Once committed, your loyalty is unshakeable.',
+      lucky: { color:'Green', number:'3', direction:'East', season:'Spring' }
+    },
+    { char:'乙', rom:'Eul',    el:'Wood',  yin:true,  eng:'Yin Wood',    emoji:'🌿', color:'#8BC34A',
+      trait:'Flexibility, Creativity, Grace',
+      personality: 'You possess the graceful resilience of bamboo or a vine — bending with life\'s winds yet never breaking. Yin Wood individuals are deeply creative, aesthetically gifted, and socially intuitive. You have a remarkable ability to adapt to any environment and find beauty in unexpected places. Your gentleness conceals a surprising inner strength.',
+      career: 'Your creativity and people-reading abilities make you exceptional in the arts, design, writing, counseling, diplomacy, fashion, or healing professions. You excel in roles that require sensitivity, aesthetic judgment, and the ability to connect with others on a deep level.',
+      love: 'You are a romantic at heart, drawn to beauty and harmony in relationships. You may give more than you receive, and learning boundaries is part of your journey. You are attracted to confident, stable partners who appreciate your depth and creativity.',
+      lucky: { color:'Light Green', number:'8', direction:'East', season:'Spring' }
+    },
+    { char:'丙', rom:'Byeong', el:'Fire',  yin:false, eng:'Yang Fire',   emoji:'☀️', color:'#FF7043',
+      trait:'Passion, Radiance, Intelligence',
+      personality: 'You radiate warmth and vitality like the sun itself. Yang Fire individuals are social, optimistic, and intellectually brilliant. You have a magnetic personality that draws people into your orbit, and a passion for life that is truly infectious. You illuminate every room you enter and have a gift for making complex ideas accessible to all.',
+      career: 'You are built for the spotlight in the best sense. Careers in entertainment, teaching, public speaking, politics, journalism, marketing, or any field requiring charisma and clear communication are your domain. You need work that feels meaningful and socially impactful.',
+      love: 'You love deeply and dramatically. Your romantic nature can make you prone to intense beginnings, and you need a partner who can match your emotional intensity without being overwhelmed by it. You are generous and demonstrative in love, and you need that energy returned.',
+      lucky: { color:'Red, Orange', number:'7', direction:'South', season:'Summer' }
+    },
+    { char:'丁', rom:'Jeong',  el:'Fire',  yin:true,  eng:'Yin Fire',    emoji:'🕯️', color:'#FFA726',
+      trait:'Warmth, Intuition, Focus',
+      personality: 'Like a candle flame, you provide focused, steady warmth rather than blinding radiance. You are deeply intuitive, perceptive, and emotionally intelligent. Yin Fire individuals have a quiet charisma — people feel safe and seen in your presence. You have strong artistic sensibilities and a rich inner world that few are permitted to see fully.',
+      career: 'Your intuition and emotional depth make you exceptional in psychology, the healing arts, spiritual counseling, artistic fields, writing, research, or any career that requires deep focus and empathetic understanding. You work best in environments of trust and meaning.',
+      love: 'You are quietly devoted, forming deep and lasting bonds. You may be cautious in opening your heart, but once you do, your love is unwavering. You need emotional security above all else, and you are drawn to partners who are honest, stable, and spiritually aware.',
+      lucky: { color:'Red, Purple', number:'2', direction:'South', season:'Summer' }
+    },
+    { char:'戊', rom:'Mu',     el:'Earth', yin:false, eng:'Yang Earth',  emoji:'🏔️', color:'#D4A843',
+      trait:'Stability, Strength, Reliability',
+      personality: 'You are the mountain — solid, enduring, and deeply trustworthy. Yang Earth individuals are natural pillars of strength in any community. Your patience is extraordinary, your reliability legendary. People instinctively lean on you in times of difficulty. You have a broad perspective and the capacity to hold many people and situations in balance simultaneously.',
+      career: 'You excel in fields requiring steadiness, strategy, and long-term commitment: real estate, finance, government, military, management, farming, construction, medicine, or any role where consistency and breadth of vision matter. You are the backbone of any organization you join.',
+      love: 'In relationships, you are loyal to your core. You may express love through acts of service and reliability rather than verbal expression, but your devotion is absolute. You seek a partner who respects your need for stability and appreciates your steadfast nature.',
+      lucky: { color:'Yellow, Brown', number:'5', direction:'Center', season:'All seasons' }
+    },
+    { char:'己', rom:'Gi',     el:'Earth', yin:true,  eng:'Yin Earth',   emoji:'🌾', color:'#A1887F',
+      trait:'Nurturing, Practicality, Care',
+      personality: 'You are the fertile soil — nourishing life, absorbing experience, and quietly sustaining all who depend on you. Yin Earth individuals are deeply empathetic, methodical, and nurturing. You have an extraordinary memory and attention to detail. Your practical wisdom, built from careful observation, is a rare gift that benefits everyone around you.',
+      career: 'Your caregiving nature and practical intelligence shine in healthcare, education, social work, administration, agriculture, accounting, or roles that require meticulous attention to detail and genuine care for others\' wellbeing.',
+      love: 'You are a devoted, attentive partner who remembers every detail about the people you love. You express affection through care and acts of service. You may give too much and need to learn to also receive. You thrive with partners who are appreciative and emotionally expressive.',
+      lucky: { color:'Yellow, Beige', number:'0', direction:'Center', season:'Late Summer' }
+    },
+    { char:'庚', rom:'Gyeong', el:'Metal', yin:false, eng:'Yang Metal',  emoji:'⚔️', color:'#90A4AE',
+      trait:'Strength, Justice, Decisiveness',
+      personality: 'You are forged steel — strong, principled, and uncompromising in your values. Yang Metal individuals have an innate sense of justice and a decisive, sharp mind. You cut through ambiguity and speak difficult truths that others avoid. Your directness, while occasionally abrasive, stems from a deep respect for honesty and integrity.',
+      career: 'Your strength and justice orientation lead you toward law enforcement, the military, surgery, law, engineering, finance, debate, or any field requiring decisive action, precise thinking, and moral courage.',
+      love: 'You are fiercely protective of those you love. In relationships, you are direct about your needs and expect the same in return. You have little tolerance for games or ambiguity. You are drawn to partners with strong character, and once committed, you are a formidable and loyal companion.',
+      lucky: { color:'White, Silver', number:'9', direction:'West', season:'Autumn' }
+    },
+    { char:'辛', rom:'Sin',    el:'Metal', yin:true,  eng:'Yin Metal',   emoji:'💎', color:'#CFD8DC',
+      trait:'Refinement, Precision, Sensitivity',
+      personality: 'You are a finely cut gemstone — brilliant, refined, and possessed of hidden depths. Yin Metal individuals are aesthetically attuned, emotionally sensitive, and intellectually precise. You have high standards for yourself and others, which can read as perfectionism but stems from a genuine love of excellence. Your aesthetic sensibility is exceptional.',
+      career: 'Your refinement and precision make you exceptional in jewelry, fine arts, music, editing, research, mathematics, surgery, programming, fashion, or any field requiring meticulous craft and high aesthetic standards.',
+      love: 'You are selective and somewhat guarded in love — your heart is precious and you do not give it lightly. You are a tender and thoughtful partner once trust is established. You need a relationship that balances intellectual connection with emotional depth.',
+      lucky: { color:'White, Gold', number:'4', direction:'West', season:'Autumn' }
+    },
+    { char:'壬', rom:'Im',     el:'Water', yin:false, eng:'Yang Water',  emoji:'🌊', color:'#4FC3F7',
+      trait:'Wisdom, Adaptability, Freedom',
+      personality: 'You are the vast ocean — deep, powerful, and capable of both great nurturing and tremendous force. Yang Water individuals are visionary thinkers with broad intellectual horizons. Your mind moves quickly, connecting ideas across domains with ease. You are a seeker of knowledge and freedom, always flowing toward new horizons.',
+      career: 'Your expansive mind and adaptability suit philosophy, travel, international business, research, writing, law, technology, medicine, or any field that rewards intellectual breadth, big-picture thinking, and the freedom to explore.',
+      love: 'You need a partner who gives you freedom and engages your mind. Possessiveness stifles you, while deep intellectual and emotional connection draws you in. You are capable of profound love, but it must flow freely to stay pure.',
+      lucky: { color:'Blue, Black', number:'1', direction:'North', season:'Winter' }
+    },
+    { char:'癸', rom:'Gye',    el:'Water', yin:true,  eng:'Yin Water',   emoji:'💧', color:'#81D4FA',
+      trait:'Intuition, Mystery, Depth',
+      personality: 'You are the mountain spring — quiet, pure, and hidden in depth. Yin Water individuals are exceptionally intuitive, introspective, and emotionally complex. You absorb the feelings and environments around you like water absorbs everything it touches. Your inner life is extraordinarily rich, and your capacity for empathy and insight is unmatched.',
+      career: 'Your intuition and introspective depth suit psychology, spirituality, research, music, poetry, healing arts, philosophy, or work with water (marine biology, sailing). You thrive in environments that honor both solitude and depth of feeling.',
+      love: 'You feel everything deeply and love with profound intensity. You need a partner who can dive into the depths with you — surface-level connections leave you cold. You are intuitive about others\' needs but may struggle to express your own. Trust takes time, but once given, it is oceanic in its depth.',
+      lucky: { color:'Blue, Dark Gray', number:'6', direction:'North', season:'Winter' }
+    }
+];
+
+const BRANCHES = [
+    { char:'子', rom:'Ja',   animal:'Rat',     emoji:'🐀', el:'Water', yin:false,
+      trait:'Quick-witted, resourceful, and charming with hidden depths.' },
+    { char:'丑', rom:'Chuk', animal:'Ox',      emoji:'🐂', el:'Earth', yin:true,
+      trait:'Diligent, patient, and steadfast — slow to anger, slow to forget.' },
+    { char:'寅', rom:'In',   animal:'Tiger',   emoji:'🐯', el:'Wood',  yin:false,
+      trait:'Courageous, magnetic, and unpredictable — born to blaze trails.' },
+    { char:'卯', rom:'Myo',  animal:'Rabbit',  emoji:'🐇', el:'Wood',  yin:true,
+      trait:'Gentle, perceptive, and elegant with a quiet, enduring strength.' },
+    { char:'辰', rom:'Jin',  animal:'Dragon',  emoji:'🐉', el:'Earth', yin:false,
+      trait:'Visionary, powerful, and charismatic — larger than life in all things.' },
+    { char:'巳', rom:'Sa',   animal:'Snake',   emoji:'🐍', el:'Fire',  yin:true,
+      trait:'Wise, enigmatic, and deeply intuitive with a magnetic mystique.' },
+    { char:'午', rom:'O',    animal:'Horse',   emoji:'🐎', el:'Fire',  yin:false,
+      trait:'Free-spirited, energetic, and passionate — impossible to contain.' },
+    { char:'未', rom:'Mi',   animal:'Goat',    emoji:'🐑', el:'Earth', yin:true,
+      trait:'Creative, empathetic, and gentle with a deep need for harmony.' },
+    { char:'申', rom:'Sin',  animal:'Monkey',  emoji:'🐒', el:'Metal', yin:false,
+      trait:'Clever, versatile, and inventive — a brilliant improvisational mind.' },
+    { char:'酉', rom:'Yu',   animal:'Rooster', emoji:'🐓', el:'Metal', yin:true,
+      trait:'Observant, precise, and honest — driven by an inner need for excellence.' },
+    { char:'戌', rom:'Sul',  animal:'Dog',     emoji:'🐕', el:'Earth', yin:false,
+      trait:'Loyal, courageous, and just — a guardian with a golden heart.' },
+    { char:'亥', rom:'Hae',  animal:'Pig',     emoji:'🐗', el:'Water', yin:true,
+      trait:'Generous, sincere, and deeply kind — the most pure-hearted of souls.' },
+];
+
+const ELEMENT_META = {
+    Wood:  { color:'#6DBF6D', bg:'rgba(109,191,109,0.15)', label:'Wood 木', desc:'Growth, vitality, creativity, and upward movement.' },
+    Fire:  { color:'#E85D5D', bg:'rgba(232,93,93,0.15)',   label:'Fire 火', desc:'Passion, intelligence, transformation, and illumination.' },
+    Earth: { color:'#D4A843', bg:'rgba(212,168,67,0.15)',  label:'Earth 土', desc:'Stability, nourishment, balance, and endurance.' },
+    Metal: { color:'#B0B8C8', bg:'rgba(176,184,200,0.15)', label:'Metal 金', desc:'Precision, strength, clarity, and refinement.' },
+    Water: { color:'#5AAFD4', bg:'rgba(90,175,212,0.15)',  label:'Water 水', desc:'Wisdom, adaptability, mystery, and flow.' },
+};
+
+// ── Calculation ───────────────────────────────────────────────────
+function getYearPillar(year, month, day) {
+    let y = year;
+    // If before Lichun (~Feb 4), use previous year
+    if (month < 2 || (month === 2 && day < 4)) y--;
+    const idx60 = ((y - 4) % 60 + 60) % 60;
+    return { stem: STEMS[idx60 % 10], branch: BRANCHES[idx60 % 12] };
+}
+
+function getMonthBranch(month, day) {
+    // Solar term approximate cutoff: 6th of each month
+    const cuts = [
+        [1, 5,  11], // Jan 1-5 → 子 (11), Jan 6+ → 丑 (1)
+        [2, 3,   1], // Feb 1-3 → 丑, Feb 4+ → 寅 (2)
+        [3, 5,   2], // Mar 1-5 → 寅, Mar 6+ → 卯 (3)
+        [4, 4,   3], // Apr 1-4 → 卯, Apr 5+ → 辰 (4)
+        [5, 5,   4], // May 1-5 → 辰, May 6+ → 巳 (5)
+        [6, 5,   5], // Jun 1-5 → 巳, Jun 6+ → 午 (6)
+        [7, 6,   6], // Jul 1-6 → 午, Jul 7+ → 未 (7)
+        [8, 7,   7], // Aug 1-7 → 未, Aug 8+ → 申 (8)
+        [9, 7,   8], // Sep 1-7 → 申, Sep 8+ → 酉 (9)
+        [10,7,   9], // Oct 1-7 → 酉, Oct 8+ → 戌 (10)
+        [11,6,  10], // Nov 1-6 → 戌, Nov 7+ → 亥 (11)
+        [12,6,  11], // Dec 1-6 → 亥, Dec 7+ → 子 (0)
+    ];
+    for (const [m, cutDay, prevBranch] of cuts) {
+        if (month === m) {
+            if (day <= cutDay) return prevBranch;
+            else {
+                // Next branch
+                if (m === 12) return 0;
+                return prevBranch + 1;
+            }
+        }
+    }
+    return 0;
+}
+
+function getMonthStem(yearStemIdx, branchIdx) {
+    // Starting stem for 寅月 based on year stem group
+    const startStems = [2, 4, 6, 8, 0]; // gap/gi, eul/gyeong, byeong/sin, jeong/im, mu/gye
+    const group = yearStemIdx % 5;
+    const startStem = startStems[group];
+    const offset = (branchIdx - 2 + 12) % 12;
+    return (startStem + offset) % 10;
+}
+
+function getMonthPillar(year, month, day, yearStemIdx) {
+    const branchIdx = getMonthBranch(month, day);
+    const stemIdx = getMonthStem(yearStemIdx, branchIdx);
+    return { stem: STEMS[stemIdx], branch: BRANCHES[branchIdx] };
+}
+
+function getDayPillar(year, month, day) {
+    // Reference: Jan 1, 2000 = day cycle index 16 (庚辰)
+    const ref = new Date(2000, 0, 1);
+    const target = new Date(year, month - 1, day);
+    const days = Math.round((target - ref) / 86400000);
+    const idx60 = ((16 + days) % 60 + 60) % 60;
+    return { stem: STEMS[idx60 % 10], branch: BRANCHES[idx60 % 12] };
+}
+
+function getHourPillar(hour, dayStemIdx) {
+    if (hour === 99) return null;
+    let branchIdx;
+    if (hour === 23 || hour === 0) branchIdx = 0;
+    else branchIdx = Math.floor((hour + 1) / 2);
+    // Hour stem based on day stem
+    const startStems = [0, 2, 4, 6, 8];
+    const group = dayStemIdx % 5;
+    const stemIdx = (startStems[group] + branchIdx) % 10;
+    return { stem: STEMS[stemIdx], branch: BRANCHES[branchIdx] };
+}
+
+function getHourLabel(hour) {
+    const names = ['자시(子時)','축시(丑時)','축시(丑時)','인시(寅時)','인시(寅時)','묘시(卯時)',
+                   '묘시(卯時)','진시(辰時)','진시(辰時)','사시(巳時)','사시(巳時)','오시(午時)',
+                   '오시(午時)','미시(未時)','미시(未時)','신시(申時)','신시(申時)','유시(酉時)',
+                   '유시(酉時)','술시(戌時)','술시(戌時)','해시(亥時)','해시(亥時)','해시(亥時)'];
+    return names[hour] || '';
+}
+
+// ── Render ────────────────────────────────────────────────────────
+function renderPillar(pillar, label, isDay) {
+    if (!pillar) {
+        return `<div class="pillar-card${isDay?' day-card':''}">
+            <div class="pillar-label">${label}</div>
+            <div style="color:var(--text-dim);font-size:0.85rem;padding:20px 0;">
+                Birth time<br>not provided
+            </div>
+        </div>`;
+    }
+    const s = pillar.stem, b = pillar.branch;
+    return `
+    <div class="pillar-card${isDay?' day-card':''}">
+        <div class="pillar-label">${label}</div>
+        <div class="pillar-stem el-${s.el.toLowerCase()}">${s.char}</div>
+        <div class="pillar-stem-label" style="color:var(--text-dim)">
+            ${s.rom} · ${s.eng}
+        </div>
+        <div class="pillar-divider"></div>
+        <div class="pillar-branch el-${b.el.toLowerCase()}">${b.char}</div>
+        <div class="pillar-branch-label">${b.rom} · ${b.el}</div>
+        <div class="pillar-animal">${b.emoji}</div>
+        <div class="pillar-animal-name">${b.animal}</div>
+    </div>`;
+}
+
+function countElements(pillars) {
+    const counts = { Wood:0, Fire:0, Earth:0, Metal:0, Water:0 };
+    pillars.forEach(p => {
+        if (!p) return;
+        counts[p.stem.el]++;
+        counts[p.branch.el]++;
+    });
+    return counts;
+}
+
+function renderElementBalance(counts) {
+    const max = Math.max(...Object.values(counts), 1);
+    const total = Object.values(counts).reduce((a,b)=>a+b,0);
+    return Object.entries(counts).map(([el, count]) => {
+        const meta = ELEMENT_META[el];
+        const pct = Math.round((count / max) * 100);
+        return `
+        <div class="element-bar-wrap">
+            <div class="element-bar-outer">
+                <div class="element-bar-inner"
+                     style="background:${meta.color};height:${Math.max(pct,4)}%;opacity:0.8;">
+                </div>
+            </div>
+            <div class="element-bar-count">${count}</div>
+            <div class="element-bar-label">${el}</div>
+        </div>`;
+    }).join('');
+}
+
+function getElementInsight(counts, dominant, weak) {
+    const domMeta = ELEMENT_META[dominant];
+    const insights = {
+        Wood:  'Your chart is rich with Wood energy — you are energetic, growth-oriented, and creative. Watch for impatience or rigidity when challenged.',
+        Fire:  'Fire dominates your chart — you are passionate, expressive, and intellectually bright. Guard against burning out or becoming scattered.',
+        Earth: 'Earth anchors your chart — you are reliable, patient, and deeply nurturing. Be aware of stubbornness or becoming too fixed in your ways.',
+        Metal: 'Metal defines your chart — you are principled, precise, and driven by excellence. Watch for perfectionism or emotional rigidity.',
+        Water: 'Water flows through your chart — you are intuitive, wise, and deeply perceptive. Guard against over-absorption of others\' emotions.',
+    };
+    const weakInsights = {
+        Wood:  'A lack of Wood suggests you may benefit from cultivating flexibility, creativity, and a longer-term vision.',
+        Fire:  'Low Fire in your chart suggests nurturing more passion, self-expression, and social connection in your life.',
+        Earth: 'Weak Earth may mean you seek more stability and groundedness in your daily routines and environment.',
+        Metal: 'Minimal Metal suggests focusing on discipline, structure, and discernment in your decision-making.',
+        Water: 'Low Water energy calls you toward deeper introspection, wisdom, and trust in your intuition.',
+    };
+    let text = `<p>${insights[dominant]}</p>`;
+    if (weak && weak !== dominant) text += `<p>${weakInsights[weak]}</p>`;
+    return text;
+}
+
+function getAnimalInsight(yearBranch, dayBranch) {
+    return `<div class="highlight-box">
+        Your <strong>Year Animal</strong> (${yearBranch.emoji} ${yearBranch.animal}) shapes how the world perceives you and the ancestral energies you carry.
+        Your <strong>Day Animal</strong> (${dayBranch.emoji} ${dayBranch.animal}) reveals your innermost emotional landscape.
+        <em>${dayBranch.trait}</em>
+    </div>`;
+}
+
+function calculateSaju() {
+    const year = parseInt(document.getElementById('inp-year').value);
+    const month = parseInt(document.getElementById('inp-month').value);
+    const day = parseInt(document.getElementById('inp-day').value);
+    const hourRaw = document.getElementById('inp-hour').value;
+    const errEl = document.getElementById('error-msg');
+
+    if (!year || !month || !day || hourRaw === '') {
+        errEl.classList.add('show');
+        return;
+    }
+    errEl.classList.remove('show');
+
+    const hour = parseInt(hourRaw);
+    const months = ['','January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    // Calculate pillars
+    const yp = getYearPillar(year, month, day);
+    const mp = getMonthPillar(year, month, day, STEMS.indexOf(yp.stem));
+    const dp = getDayPillar(year, month, day);
+    const hp = hour === 99 ? null : getHourPillar(hour, STEMS.indexOf(dp.stem));
+
+    // Render pillars
+    document.getElementById('birth-display').textContent =
+        `${months[month]} ${day}, ${year}${hour !== 99 ? ' · ' + String(hour).padStart(2,'0') + ':00 · ' + getHourLabel(hour) : ''}`;
+
+    document.getElementById('pillars-grid').innerHTML =
+        renderPillar(yp, 'Year · 年柱', false) +
+        renderPillar(mp, 'Month · 月柱', false) +
+        renderPillar(dp, 'Day · 日柱', true) +
+        renderPillar(hp, 'Hour · 時柱', false);
+
+    // Day Master
+    const dm = dp.stem;
+    document.getElementById('daymaster-body').innerHTML = `
+        <div class="highlight-box">
+            Your Day Master is <strong>${dm.char} (${dm.rom}) — ${dm.eng}</strong> ${dm.emoji}<br>
+            Core traits: <em>${dm.trait}</em>
+        </div>
+        <p>${dm.personality}</p>
+        <div class="traits-grid">
+            <div class="trait-item"><div class="trait-label">Element</div><div class="trait-value el-${dm.el.toLowerCase()}">${dm.el}</div></div>
+            <div class="trait-item"><div class="trait-label">Polarity</div><div class="trait-value">${dm.yin ? 'Yin (음)' : 'Yang (양)'}</div></div>
+            <div class="trait-item"><div class="trait-label">Character</div><div class="trait-value">${dm.char}</div></div>
+            <div class="trait-item"><div class="trait-label">Symbol</div><div class="trait-value" style="font-size:1.4rem">${dm.emoji}</div></div>
+        </div>`;
+
+    // Element balance
+    const pillars = [yp, mp, dp, hp];
+    const counts = countElements(pillars);
+    const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    const dominant = sorted[0][0];
+    const weak = sorted.find(([,c])=>c===0)?.[0] || sorted[sorted.length-1][0];
+
+    document.getElementById('element-balance').innerHTML = renderElementBalance(counts);
+    document.getElementById('element-body').innerHTML = getElementInsight(counts, dominant, weak);
+
+    // Personality
+    document.getElementById('personality-body').innerHTML = `
+        ${getAnimalInsight(yp.branch, dp.branch)}
+        <p>${dm.personality}</p>
+        <p>Your <strong>Year Branch</strong> (${yp.branch.emoji} ${yp.branch.animal}) speaks to your roots and early life environment:
+        <em>${yp.branch.trait}</em></p>
+        <p>Your <strong>Month Branch</strong> (${mp.branch.emoji} ${mp.branch.animal}) reveals your social face and career tendencies:
+        <em>${mp.branch.trait}</em></p>
+        ${hp ? `<p>Your <strong>Hour Branch</strong> (${hp.branch.emoji} ${hp.branch.animal}) governs your children, late life, and hidden self: <em>${hp.branch.trait}</em></p>` : ''}`;
+
+    // Career
+    document.getElementById('career-body').innerHTML = `
+        <p>${dm.career}</p>
+        <div class="highlight-box">
+            <strong>Elemental Career Guidance —</strong>
+            ${ELEMENT_META[dominant].desc.replace('.', '')} in your career means you naturally gravitate toward ${
+                dominant === 'Wood' ? 'growth industries, leadership roles, and fields that create lasting value.' :
+                dominant === 'Fire' ? 'communications, the arts, teaching, and roles where you can inspire others.' :
+                dominant === 'Earth' ? 'stable institutions, service industries, and fields requiring reliability.' :
+                dominant === 'Metal' ? 'precision fields, law, finance, engineering, and roles demanding exactness.' :
+                'research, philosophy, healing, and fields that reward depth over speed.'
+            }
+        </div>`;
+
+    // Love
+    document.getElementById('love-body').innerHTML = `
+        <p>${dm.love}</p>
+        <p>Your <strong>Day Pillar</strong> (${dp.stem.char} ${dp.branch.char}) in Saju holds the secret of your relationship self.
+        The Day Stem reveals how you operate in partnership, while the Day Branch is sometimes called the <em>Spouse Palace</em> —
+        the ${dp.branch.animal} energy (${dp.branch.emoji}) describes the quality of energy you seek or attract in a partner: <em>${dp.branch.trait}</em></p>`;
+
+    // Lucky
+    const lucky = dm.lucky;
+    const elColors = { Wood:'#6DBF6D', Fire:'#E85D5D', Earth:'#D4A843', Metal:'#B0B8C8', Water:'#5AAFD4' };
+    document.getElementById('lucky-grid').innerHTML = `
+        <div class="lucky-item"><div class="lucky-item-icon">🎨</div><div class="lucky-item-label">Lucky Color</div><div class="lucky-item-value">${lucky.color}</div></div>
+        <div class="lucky-item"><div class="lucky-item-icon">🔢</div><div class="lucky-item-label">Lucky Number</div><div class="lucky-item-value">${lucky.number}</div></div>
+        <div class="lucky-item"><div class="lucky-item-icon">🧭</div><div class="lucky-item-label">Direction</div><div class="lucky-item-value">${lucky.direction}</div></div>
+        <div class="lucky-item"><div class="lucky-item-icon">🌿</div><div class="lucky-item-label">Season</div><div class="lucky-item-value">${lucky.season}</div></div>
+        <div class="lucky-item"><div class="lucky-item-icon">${dm.emoji}</div><div class="lucky-item-label">Element</div><div class="lucky-item-value" style="color:${elColors[dm.el]}">${dm.el}</div></div>
+        <div class="lucky-item"><div class="lucky-item-icon">${yp.branch.emoji}</div><div class="lucky-item-label">Year Animal</div><div class="lucky-item-value">${yp.branch.animal}</div></div>`;
+
+    // Show results
+    const resultsEl = document.getElementById('results');
+    resultsEl.classList.add('visible');
+    setTimeout(() => {
+        resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Add reveal to reading sections
+        document.querySelectorAll('.reading-section').forEach(el => {
+            el.classList.add('reveal');
+            observer.observe(el);
+        });
+    }, 100);
+}
+</script>
+
+</body>
+</html>
