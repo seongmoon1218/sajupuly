@@ -3,7 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사주 Saju — Korean Four Pillars of Destiny</title>
+    <title>Saju — Free Korean Four Pillars of Destiny Reading | 사주팔자</title>
+    <meta name="description" content="Discover your Korean Four Pillars of Destiny (사주팔자). Enter your birth date and time for a free, detailed Saju reading — personality, career, love, and lucky elements based on ancient Korean-Chinese cosmology.">
+    <meta name="keywords" content="saju, korean astrology, four pillars of destiny, 사주팔자, korean fortune telling, bazi, birth chart, heavenly stems, earthly branches">
+    <meta name="author" content="Saju Puly">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sajupuly.pages.dev">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Saju — Free Korean Four Pillars of Destiny Reading">
+    <meta property="og:description" content="Discover your destiny through Saju, the ancient Korean-Chinese Four Pillars of Destiny. Free online reading covering personality, career, love and lucky elements.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sajupuly.pages.dev">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Saju — Free Korean Four Pillars of Destiny Reading">
+    <meta name="twitter:description" content="Free Korean Saju reading. Enter your birth date for personality, career, and love insights based on 2,000-year-old cosmology.">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Saju — Korean Four Pillars of Destiny",
+      "description": "Free online Korean Saju (四柱) reading based on your birth date and time. Covers personality, career, relationships, and elemental balance.",
+      "url": "https://sajupuly.pages.dev",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
 
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-4899170525869163">
@@ -40,6 +71,195 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
+
+        /* ── Site Nav ── */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13,13,26,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(201,168,76,0.12);
+        }
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+        }
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a {
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        @media (max-width: 480px) {
+            .nav-links { gap: 14px; }
+            .nav-links a { font-size: 0.68rem; }
+        }
+
+        /* ── About Section ── */
+        .about-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(201,168,76,0.1);
+            border-radius: 2px;
+            padding: 48px 40px;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 1;
+        }
+        .about-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        .about-section .about-sub {
+            font-size: 0.78rem;
+            color: var(--gold-dark);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .about-section p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+        .about-section p:last-child { margin-bottom: 0; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 28px 0;
+        }
+        .about-card {
+            background: rgba(13,13,26,0.5);
+            border: 1px solid rgba(201,168,76,0.08);
+            padding: 20px;
+        }
+        .about-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+        .about-card p { font-size: 0.85rem; margin-bottom: 0; }
+        @media (max-width: 600px) {
+            .about-section { padding: 28px 20px; }
+            .about-grid { grid-template-columns: 1fr; gap: 14px; }
+        }
+
+        /* ── Contact Section ── */
+        .contact-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(201,168,76,0.1);
+            border-radius: 2px;
+            padding: 40px;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .contact-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+        .contact-section p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.8; }
+        .contact-section a { color: var(--gold); text-decoration: none; }
+        .contact-section a:hover { text-decoration: underline; }
+        @media (max-width: 600px) { .contact-section { padding: 28px 20px; } }
+
+        /* ── Privacy Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+        .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(201,168,76,0.2);
+            max-width: 680px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+        }
+        .modal-box h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+        .modal-box .modal-date { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 24px; }
+        .modal-box h3 { color: var(--gold-light); font-size: 1rem; margin: 20px 0 8px; }
+        .modal-box p { color: var(--text-dim); font-size: 0.88rem; line-height: 1.85; margin-bottom: 12px; }
+        .modal-box ul { color: var(--text-dim); font-size: 0.88rem; line-height: 1.85; padding-left: 20px; margin-bottom: 12px; }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close:hover { color: var(--gold); }
+
+        /* ── Cookie Banner ── */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(18,18,42,0.97);
+            border-top: 1px solid rgba(201,168,76,0.2);
+            padding: 16px 24px;
+            z-index: 8888;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .cookie-banner.hidden { display: none !important; }
+        .cookie-text { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; flex: 1; min-width: 200px; }
+        .cookie-text a { color: var(--gold); text-decoration: none; }
+        .cookie-accept {
+            background: var(--gold-dark);
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+            padding: 8px 22px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .cookie-accept:hover { background: var(--gold); color: #0D0D1A; }
 
         /* ── Canvas Stars ── */
         #stars-canvas {
@@ -666,6 +886,19 @@
 
 <canvas id="stars-canvas"></canvas>
 
+<!-- NAVIGATION -->
+<nav class="site-nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">사주 · Saju</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#calculator">Reading</a>
+            <a href="#contact">Contact</a>
+            <a href="#" onclick="openPrivacy(event)">Privacy</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
 
     <!-- HERO -->
@@ -677,6 +910,42 @@
             An ancient Korean-Chinese divination system over 2,000 years old.
             Your birth moment encodes four pillars — each a window into your nature,
             your path, and the cosmic energies that shape your life.
+        </p>
+    </section>
+
+    <!-- ABOUT / EDUCATIONAL CONTENT -->
+    <section id="about" class="about-section reveal">
+        <h2>What is Saju?</h2>
+        <div class="about-sub">사주팔자 · Four Pillars of Destiny · 四柱八字</div>
+        <p>
+            <strong>Saju</strong> (사주, 四柱) is one of the oldest and most sophisticated systems of destiny analysis in East Asian culture, with roots stretching back over 2,000 years to ancient China and refined through centuries of Korean tradition. The word literally means <em>"four pillars"</em> — representing the year, month, day, and hour of birth — while <em>Pallja</em> (팔자, 八字) refers to the eight characters that arise from those four pillars.
+        </p>
+        <p>
+            Each pillar consists of two characters: a <strong>Heavenly Stem</strong> (천간, 天干) and an <strong>Earthly Branch</strong> (지지, 地支). The ten Heavenly Stems and twelve Earthly Branches combine in a 60-year cycle known as the <em>Sexagenary Cycle</em>, producing a unique cosmic fingerprint for every moment of time. Your birth moment is encoded in this system as eight characters — your personal Saju chart.
+        </p>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>☰ The Five Elements · 오행</h3>
+                <p>Wood (木), Fire (火), Earth (土), Metal (金), and Water (水) are the building blocks of all Saju interpretation. Each element governs personality traits, health tendencies, career inclinations, and relationship dynamics. The balance — or imbalance — of elements in your chart reveals your strengths and areas for growth.</p>
+            </div>
+            <div class="about-card">
+                <h3>☯ The Day Master · 일간</h3>
+                <p>The Heavenly Stem of your Day Pillar is called the <em>Day Master</em> (일간, 日干) — the single most important indicator of your inner self, personality, and life path. It represents <em>you</em> within the cosmic web of energies surrounding your birth. All other elements in the chart are interpreted in relation to the Day Master.</p>
+            </div>
+            <div class="about-card">
+                <h3>🐉 The Twelve Branches · 지지</h3>
+                <p>The twelve Earthly Branches correspond to the twelve animals of the Chinese zodiac: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig. Each branch also carries elemental energy and governs specific life areas — the Year Branch shapes ancestral influences, while the Day Branch is often called the <em>Spouse Palace</em>.</p>
+            </div>
+            <div class="about-card">
+                <h3>📅 Solar Terms · 절기</h3>
+                <p>In Saju, the month pillar is determined not by the calendar month but by the 24 <em>solar terms</em> (절기, 節氣) — points in the Earth's orbit that mark seasonal transitions. This means your Saju month begins around the 4th–8th of each Western month, connecting your fate to the rhythms of nature and the cosmos.</p>
+            </div>
+        </div>
+        <p>
+            Saju is not about predestination. It is a map — a detailed landscape of your innate tendencies, natural strengths, recurring patterns, and the energetic seasons of your life. Used wisely, it is a tool for profound self-understanding and conscious navigation of your personal path. Think of it as a cosmic blueprint: the stars set the stage, but you write the story.
+        </p>
+        <p>
+            This calculator uses classical Saju principles — the 60-cycle sexagenary system, solar term month boundaries, and traditional elemental interpretation — to generate your reading. All results are for cultural exploration and personal reflection.
         </p>
     </section>
 
@@ -693,7 +962,7 @@
     </div>
 
     <!-- FORM -->
-    <section class="form-section reveal">
+    <section id="calculator" class="form-section reveal">
         <h2 class="form-title">Enter Your Birth Information</h2>
         <p class="form-subtitle">Use your local birth time — the moment you arrived in this world</p>
 
@@ -874,16 +1143,126 @@
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section reveal">
+        <h2>Contact Us</h2>
+        <p>
+            Have questions, feedback, or suggestions about your Saju reading?<br>
+            We'd love to hear from you.
+        </p>
+        <p style="margin-top:16px;">
+            Email: <a href="mailto:hello@sajupuly.pages.dev">hello@sajupuly.pages.dev</a>
+        </p>
+        <p style="margin-top:12px; font-size:0.82rem; opacity:0.6;">
+            Response time: within 2–3 business days.<br>
+            For privacy-related requests, please reference our <a href="#" onclick="openPrivacy(event)">Privacy Policy</a>.
+        </p>
+    </section>
+
 </div>
 
 <!-- FOOTER -->
 <footer>
     <div class="footer-title">사주 · 四柱 · Saju</div>
-    <p>Korean Four Pillars of Destiny · An interpretation based on classical Korean Saju principles</p>
-    <p style="margin-top:8px; font-size:0.75rem; opacity:0.5;">This reading is for cultural exploration and personal reflection. The cosmos speaks in patterns — listen with an open heart.</p>
+    <p>Korean Four Pillars of Destiny · Based on classical Korean-Chinese Saju (사주팔자) principles</p>
+    <nav style="margin: 20px 0; display:flex; justify-content:center; gap:24px; flex-wrap:wrap;">
+        <a href="#about" style="color:var(--gold-dark);font-size:0.78rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">About Saju</a>
+        <a href="#calculator" style="color:var(--gold-dark);font-size:0.78rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Free Reading</a>
+        <a href="#contact" style="color:var(--gold-dark);font-size:0.78rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Contact</a>
+        <a href="#" onclick="openPrivacy(event)" style="color:var(--gold-dark);font-size:0.78rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Privacy Policy</a>
+    </nav>
+    <p style="font-size:0.75rem; opacity:0.5;">
+        ⚠️ This reading is for cultural exploration and personal reflection only. It does not constitute professional advice of any kind.
+    </p>
+    <p style="margin-top:10px; font-size:0.72rem; opacity:0.4;">
+        © 2025 Saju Puly. All rights reserved. · This site uses Google AdSense to display advertisements. Third-party cookies may be used.
+    </p>
 </footer>
 
+<!-- PRIVACY POLICY MODAL -->
+<div class="modal-overlay" id="privacy-modal" onclick="closePrivacyOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closePrivacy()">&times;</button>
+        <h2>Privacy Policy</h2>
+        <div class="modal-date">Last updated: March 2025</div>
+
+        <h3>1. Introduction</h3>
+        <p>Welcome to Saju Puly ("we", "our", "us"). This Privacy Policy explains how we handle information when you visit <strong>sajupuly.pages.dev</strong> (the "Site"). We are committed to protecting your privacy.</p>
+
+        <h3>2. Information We Collect</h3>
+        <p>We do not collect, store, or transmit any personal data you enter into this Site. Birth date and time inputs are processed entirely within your browser (client-side JavaScript) and are never sent to our servers.</p>
+        <p>We may collect non-personally identifiable information through analytics and advertising services, including:</p>
+        <ul>
+            <li>Pages visited and time spent on the site</li>
+            <li>Browser type and device type</li>
+            <li>Referring URL and general geographic region</li>
+        </ul>
+
+        <h3>3. Google AdSense & Cookies</h3>
+        <p>This Site uses <strong>Google AdSense</strong> to display advertisements. Google AdSense may use cookies and web beacons to serve ads based on your prior visits to this and other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet.</p>
+        <p>You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" style="color:var(--gold);">Google Ad Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener" style="color:var(--gold);">aboutads.info</a>.</p>
+
+        <h3>4. Third-Party Services</h3>
+        <p>We use the following third-party services which may collect data subject to their own privacy policies:</p>
+        <ul>
+            <li><strong>Google AdSense</strong> — advertising (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--gold);">Google Privacy Policy</a>)</li>
+            <li><strong>Google Fonts</strong> — typography rendering</li>
+            <li><strong>Cloudflare Pages</strong> — website hosting</li>
+        </ul>
+
+        <h3>5. Your Rights</h3>
+        <p>Depending on your location, you may have rights regarding your personal data, including the right to access, correct, or delete data held about you. Since we do not store personal data, requests typically relate to data held by our third-party service providers. Contact us at <a href="mailto:hello@sajupuly.pages.dev" style="color:var(--gold);">hello@sajupuly.pages.dev</a> for assistance.</p>
+
+        <h3>6. Children's Privacy</h3>
+        <p>This Site is not directed at children under the age of 13. We do not knowingly collect personal information from children.</p>
+
+        <h3>7. Changes to This Policy</h3>
+        <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of the Site after changes constitutes acceptance of the revised policy.</p>
+
+        <h3>8. Contact</h3>
+        <p>For privacy-related questions, email us at <a href="mailto:hello@sajupuly.pages.dev" style="color:var(--gold);">hello@sajupuly.pages.dev</a>.</p>
+    </div>
+</div>
+
+<!-- COOKIE CONSENT BANNER -->
+<div class="cookie-banner hidden" id="cookie-banner">
+    <div class="cookie-text">
+        We use cookies to serve personalized ads via Google AdSense and to analyze site traffic.
+        By continuing to use this site, you agree to our use of cookies.
+        <a href="#" onclick="openPrivacy(event)">Learn more</a>
+    </div>
+    <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+</div>
+
 <script>
+// ── Privacy Modal ─────────────────────────────────────────────────
+function openPrivacy(e) {
+    if (e) e.preventDefault();
+    document.getElementById('privacy-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closePrivacy() {
+    document.getElementById('privacy-modal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+function closePrivacyOutside(e) {
+    if (e.target === document.getElementById('privacy-modal')) closePrivacy();
+}
+
+// ── Cookie Consent ─────────────────────────────────────────────────
+(function(){
+    if (!localStorage.getItem('cookieConsent')) {
+        setTimeout(function(){
+            document.getElementById('cookie-banner').classList.remove('hidden');
+        }, 800);
+    }
+})();
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', '1');
+    document.getElementById('cookie-banner').classList.add('hidden');
+}
+
 // ── Stars canvas ──────────────────────────────────────────────────
 (function(){
     const canvas = document.getElementById('stars-canvas');
